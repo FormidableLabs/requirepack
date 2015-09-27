@@ -1,0 +1,29 @@
+{
+  "name": "requirepack",
+  "version": "0.0.1",
+  "description": "Webpack + RequireJS interoperable shared libraries",
+  "main": "index.js",
+  "scripts": {
+    "lint-client": "eslint -c .eslintrc-client client",
+    "lint-server": "eslint -c .eslintrc-server lib",
+    "lint": "npm run lint-client && npm run lint-server",
+    "test": "npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FormidableLabs/requirepack.git"
+  },
+  "author": "Ryan Roemer <ryan.roemer@formidablelabs.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FormidableLabs/requirepack/issues"
+  },
+  "license": "MIT",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "eslint": "^1.5.1",
+    "eslint-config-defaults": "^6.0.0",
+    "eslint-plugin-filenames": "^0.1.2"
+  }
+}

@@ -1,0 +1,6 @@
+---
+extends:
+  - "defaults/configurations/walmart/es5-browser"
+
+globals:
+  define: false
