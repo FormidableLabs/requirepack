@@ -5,8 +5,13 @@ RequirePack
 
 [Webpack][webpack] + [RequireJS][requirejs] shared library interoperability!
 
-Webpack and RequireJS both have facilities for sharing libraries across entry
-points. Unfortunately, if loading **both** RequireJS and Webpack entry points
+Webpack and RequireJS both can consume AMD code straight up. Which means if you
+are in a transitional / complex scenario where you want _some_ code to load
+with Webpack and _other_ code to load with RequireJS from the same code base
+you can!
+
+And, Webpack and RequireJS both have facilities for sharing libraries across
+entry points. Unfortunately, if loading both RequireJS and Webpack entry points
 on the same page, the applications cannot natively use the **same** shared
 library.
 
@@ -15,9 +20,15 @@ Webpack-generated shared library to be consumaed by RequireJS entry points.
 
 ### Getting Started
 
+Install:
+
 ```sh
 $ npm install --save requirepack
 ```
+
+Configure:
+
+**TODO: DOCUMENT**
 
 ### Shared Libraries Deep Dive
 
