@@ -4,8 +4,8 @@
   "description": "Webpack + RequireJS interoperable shared libraries",
   "main": "index.js",
   "scripts": {
-    "lint-client": "eslint -c .eslintrc-client client",
-    "lint-server": "eslint -c .eslintrc-server lib",
+    "lint-client": "eslint -c .eslintrc-client test/func/*/src",
+    "lint-server": "eslint -c .eslintrc-server lib test/func/*/*.config*.js test/func/*/build.js ",
     "lint": "npm run lint-client && npm run lint-server",
     "test": "npm run lint"
   },
@@ -21,6 +21,7 @@
   "dependencies": {},
   "devDependencies": {
     "almond": "^0.3.1",
+    "async": "^1.4.2",
     "eslint": "^1.5.1",
     "eslint-config-defaults": "^6.0.0",
     "eslint-plugin-filenames": "^0.1.2",
