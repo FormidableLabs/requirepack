@@ -18,12 +18,14 @@
   "bugs": {
     "url": "https://github.com/FormidableLabs/requirepack/issues"
   },
-  "license": "MIT",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
+    "almond": "^0.3.1",
     "eslint": "^1.5.1",
     "eslint-config-defaults": "^6.0.0",
-    "eslint-plugin-filenames": "^0.1.2"
+    "eslint-plugin-filenames": "^0.1.2",
+    "lodash": "^3.10.1",
+    "requirejs": "^2.1.20",
+    "webpack": "^1.12.2"
   }
 }
