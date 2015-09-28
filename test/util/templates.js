@@ -20,7 +20,8 @@ module.exports = {
         "  <head>",
         "    <title>Demo</title>",
         "  </head>",
-        "  <body>"
+        "  <body>",
+        "    <div id=\"content\" />"
       ],
       (scripts || []).map(function (script) {
         // Convert script object of attributes to HTML string attributes.
