@@ -5,18 +5,23 @@ RequirePack
 
 [Webpack][webpack] + [RequireJS][requirejs] shared library interoperability!
 
+Webpack and RequireJS both have facilities for sharing libraries across entry
+points. Unfortunately, if loading **both** RequireJS and Webpack entry points
+on the same page, the applications cannot natively use the **same** shared
+library.
+
+RequirePack bridges this gap by providing an interopability layer to allow a
+Webpack-generated shared library to be consumaed by RequireJS entry points.
+
 ### Getting Started
 
 ```sh
 $ npm install --save requirepack
 ```
 
-### Shared Libraries Primer
+### Shared Libraries Deep Dive
 
-Webpack and RequireJS both have facilities for sharing libraries across entry
-points.
-
-Let's create a very simple example using AMD:
+Going a little deeper, let's create a very simple example using AMD:
 
 ```js
 // foo.js
@@ -65,7 +70,7 @@ modules: [
     exclude: ["lib"]
   },
   {
-    name: "app1",
+    name: "app2",
     exclude: ["lib"]
   }
 ]
@@ -74,8 +79,45 @@ modules: [
 ### Webpack
 
 For Webpack, we use the [`dll`][wp-dll] and [`dll-user`][wp-dll-user] plugins.
+The build configuration is a bit more complicated, with separate files for
+the shared library and the application entry points:
 
+```js
+// webpack.config.lib.js
+module.exports = {
+  entry: {
+    lib: ["./lib"]
+  },
+  output: {
+    path: path.join(__dirname, "dist/webpack"),
+    filename: "[name].js",
+    library: "[name]_[hash]"
+  },
+  plugins: [
+    new webpack.DllPlugin({
+      path: path.join(__dirname, "dist/webpack/[name]-manifest.json"),
+      name: "[name]_[hash]"
+    })
+  ]
+};
 
+// webpack.config.app.js
+module.exports = {
+  entry: {
+    app1: "./app1.js",
+    app2: "./app2.js"
+  },
+  output: {
+    path: path.join(__dirname, "dist/webpack"),
+    filename: "[name].js"
+  },
+  plugins: [
+    new webpack.DllReferencePlugin({
+      manifest: require("./dist/webpack/lib-manifest.json")
+    })
+  ]
+};
+```
 
 [webpack]: http://webpack.github.io/
 [wp-dll]: https://github.com/webpack/webpack/tree/master/examples/dll
