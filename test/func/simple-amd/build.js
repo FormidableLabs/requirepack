@@ -14,6 +14,29 @@ var html = require("../../util/templates").html;
 var DEST_DIR = path.join(__dirname, "dist");
 var BUILD_DIR = path.join(__dirname, "build");
 
+// Declare and export which pages are created / tested.
+var PAGES = module.exports.PAGES = {
+  "webpack-baseline.html": [
+    { src: "webpack/lib.js" },
+    { src: "webpack/app1.js" },
+    { src: "webpack/app2.js" }
+  ],
+
+  "requirejs-baseline-build.html": [
+    { src: "../../../../node_modules/requirejs/require.js" },
+    { src: "requirejs/lib.js" },
+    { src: "requirejs/app1.js" },
+    { src: "requirejs/app2.js" }
+  ],
+
+  "requirejs-baseline-almond.html": [
+    { src: "../../../../node_modules/almond/almond.js" },
+    { src: "requirejs/lib.js" },
+    { src: "requirejs/app1.js" },
+    { src: "requirejs/app2.js" }
+  ]
+};
+
 // Helpers
 var writeHtml = function (destPath, scripts, callback) {
   var dest = path.join(DEST_DIR, destPath);
@@ -35,34 +58,10 @@ var clean = module.exports.clean = function (callback) {
 
 // Build HTML templates
 var templates = module.exports.templates = function (callback) {
-  async.parallel([
-    // **Baseline**: Use existing loaders to verify original builds are honest.
-    function (cb) {
-      writeHtml("webpack-baseline.html", [
-        { src: "webpack/lib.js" },
-        { src: "webpack/app1.js" },
-        { src: "webpack/app2.js" }
-      ], cb);
-    },
-
-    function (cb) {
-      writeHtml("requirejs-baseline-build.html", [
-        { src: "../../../../node_modules/requirejs/require.js" },
-        { src: "requirejs/lib.js" },
-        { src: "requirejs/app1.js" },
-        { src: "requirejs/app2.js" }
-      ], cb);
-    },
-
-    function (cb) {
-      writeHtml("requirejs-baseline-almond.html", [
-        { src: "../../../../node_modules/almond/almond.js" },
-        { src: "requirejs/lib.js" },
-        { src: "requirejs/app1.js" },
-        { src: "requirejs/app2.js" }
-      ], cb);
-    }
-  ], callback);
+  async.each(_.keys(PAGES), function (page, cb) {
+    var scripts = PAGES[page];
+    writeHtml(page, scripts, cb);
+  }, callback);
 };
 
 // Build Webpack

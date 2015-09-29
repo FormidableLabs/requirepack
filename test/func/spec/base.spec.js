@@ -6,8 +6,6 @@
  *
  * This file has should be included in any test run, filtered or not.
  */
-var path = require("path");
-
 // Set test environment
 process.env.NODE_ENV = process.env.NODE_ENV || "test-func";
 

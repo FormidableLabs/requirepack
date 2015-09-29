@@ -39,6 +39,8 @@ Our functional tests are set up as follows:
 src/                          # Source JS files
 spec/                         # Tests
 
+build/
+  requirejs/                  # RequireJS intermediate build files
 dist/
   requirejs/                  # RequireJS built files
   webpack/                    # Webpack built files
