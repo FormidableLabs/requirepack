@@ -24,6 +24,11 @@ module.exports = {
         "    <div id=\"content\" />"
       ],
       (scripts || []).map(function (script) {
+        // Strings are treated as inline functions to wrap in a closure.
+        if (_.isString(script)) {
+          return "    <script>(" + script + "());</script>";
+        }
+
         // Convert script object of attributes to HTML string attributes.
         var attrs = _.map(script, function (val, key) {
           return [key, "\"" + val + "\""].join("=");

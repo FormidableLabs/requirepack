@@ -22,6 +22,19 @@ var PAGES = module.exports.PAGES = {
     { src: "webpack/app2.js" }
   ],
 
+  "requirejs-baseline-dev.html": [
+    { src: "../../../../node_modules/requirejs/require.js" },
+    { src: "../requirejs.config.js" },
+    function () {
+      require.config({
+        baseUrl: "../src"
+      });
+      require(["lib"], function () {
+        require(["app1", "app2"]);
+      });
+    }.toString()
+  ],
+
   "requirejs-baseline-build.html": [
     { src: "../../../../node_modules/requirejs/require.js" },
     { src: "requirejs/lib.js" },
