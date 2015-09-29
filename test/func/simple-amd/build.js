@@ -5,11 +5,14 @@
 var fs = require("fs-extra");
 var path = require("path");
 
+var _ = require("lodash");
 var async = require("async");
 var webpack = require("webpack");
+var requirejs = require("requirejs");
 
 var html = require("../../util/templates").html;
 var DEST_DIR = path.join(__dirname, "dist");
+var BUILD_DIR = path.join(__dirname, "build");
 
 // Helpers
 var writeHtml = function (destPath, scripts, callback) {
@@ -64,7 +67,6 @@ var templates = module.exports.templates = function (callback) {
 
 // Build Webpack
 var buildWebpack = function (callback) {
-
   // Series, because lib-manifest.json needs to exist before app can build.
   async.series([
     function (cb) { webpackCompile(require("./webpack.config.lib"), cb); },
@@ -73,7 +75,34 @@ var buildWebpack = function (callback) {
 };
 
 // Build RequireJS
-// TODO
+var buildRequire = function (callback) {
+  async.auto({
+    requirejs: function (cb) {
+      cb = _.once(cb);
+      requirejs.optimize({
+        buildFile: path.join(__dirname, "requirejs.build.js")
+      }, cb.bind(null, null), cb);
+    },
+    destDir: function (cb) {
+      fs.ensureDir(path.join(DEST_DIR, "requirejs"), cb);
+    },
+    copyLib: ["requirejs", "destDir", function (cb) {
+      fs.copy(
+        path.join(BUILD_DIR, "requirejs/lib.js"),
+        path.join(DEST_DIR, "requirejs/lib.js"), cb);
+    }],
+    copyApp1: ["requirejs", "destDir", function (cb) {
+      fs.copy(
+        path.join(BUILD_DIR, "requirejs/app1.js"),
+        path.join(DEST_DIR, "requirejs/app1.js"), cb);
+    }],
+    copyApp2: ["requirejs", "destDir", function (cb) {
+      fs.copy(
+        path.join(BUILD_DIR, "requirejs/app2.js"),
+        path.join(DEST_DIR, "requirejs/app2.js"), cb);
+    }]
+  }, callback);
+};
 
 // Build interop.
 // TODO
@@ -83,7 +112,8 @@ var build = module.exports.build = function (callback) {
   async.auto({
     clean: clean,
     templates: ["clean", templates],
-    buildWebpack: ["clean", buildWebpack]
+    buildWebpack: ["clean", buildWebpack],
+    buildRequire: ["clean", buildRequire]
   }, callback);
 };
 

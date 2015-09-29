@@ -11,5 +11,6 @@ npm-debug\.log
 dist
 */dist
 build
+*/build
 coverage
 Procfile

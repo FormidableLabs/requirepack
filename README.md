@@ -37,7 +37,9 @@ Going a little deeper, let's create a very simple example using AMD:
 ```js
 // foo.js
 define([], function () {
-  return "I am foo!";
+  return function (id, msg) {
+    return "<h1 id=\"" + id + "\">" + msg + "</h1>";
+  };
 });
 
 // lib.js
@@ -45,12 +47,12 @@ define(["./foo"], function () {});
 
 // app1.js
 define(["./foo"], function (foo) {
-  console.log("app1", foo);
+  document.querySelector("#content").innerHTML += foo("app1", "App 1");
 });
 
 // app2.js
 define(["./foo"], function (foo) {
-  console.log("app2", foo);
+  document.querySelector("#content").innerHTML += foo("app2", "App 2");
 });
 ```
 
@@ -78,11 +80,13 @@ modules: [
   // Application entry points. Exclude `lib.js` and `foo.js`
   {
     name: "app1",
-    exclude: ["lib"]
+    exclude: ["lib"],
+    insertRequire: ["app1"]
   },
   {
     name: "app2",
-    exclude: ["lib"]
+    exclude: ["lib"],
+    insertRequire: ["app2"]
   }
 ]
 ```
