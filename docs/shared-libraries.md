@@ -62,7 +62,7 @@ modules: [
 
 This translates to the following built files:
 
-```
+```js
 // lib.js
 define("foo", /* foo.js source */);
 define(["./foo"], function () {});
@@ -128,7 +128,7 @@ module.exports = {
 
 This translates to the following built files:
 
-```
+```js
 // lib.js
 /* Webpack loader boilerplate */
 ([
