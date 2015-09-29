@@ -5,12 +5,18 @@
   "main": "index.js",
   "scripts": {
     "lint-client": "eslint -c .eslintrc-client test/func/*/src",
-    "lint-server": "eslint -c .eslintrc-server lib test/func/*/*.config*.js test/func/*/build.js ",
+    "lint-server": "eslint -c .eslintrc-server lib test/func/*/*.config*.js test/func/*/build.js test/util",
+    "lint-server-test": "eslint -c .eslintrc-server-test test/func/spec test/func/*/spec",
     "lint": "npm run lint-client && npm run lint-server",
     "test-build": "node test/func/*/build.js",
-    "test-func": "echo 'TODO: Start FUNC TESTS'",
-    "test-server": "http-server -p 3030 .",
-    "test": "npm run lint && npm run test-build && npm run test-func"
+    "test-func": "mocha --opts test/func/mocha.opts test/func/spec test/func/*/spec",
+    "test-func-cov": "istanbul cover --config .istanbul.func.yml _mocha -- --opts test/func/mocha.opts test/func/spec test/func/*/spec",
+    "test-ci": "echo 'TODO: Start CI TESTS'",
+    "test": "npm run test-build && npm run test-func",
+    "check": "npm run lint && npm run test",
+    "check-ci": "npm run lint && npm run test-ci",
+    "server": "http-server -p 3001 .",
+    "install-dev": "selenium-standalone install"
   },
   "repository": {
     "type": "git",
@@ -25,13 +31,23 @@
   "devDependencies": {
     "almond": "^0.3.1",
     "async": "^1.4.2",
+    "chai": "^3.3.0",
+    "coveralls": "^2.11.4",
     "eslint": "^1.5.1",
     "eslint-config-defaults": "^6.0.0",
     "eslint-plugin-filenames": "^0.1.2",
     "fs-extra": "^0.24.0",
+    "guacamole": "^1.1.4",
     "http-server": "^0.8.5",
+    "istanbul": "^0.3.21",
     "lodash": "^3.10.1",
+    "mocha": "^2.3.3",
+    "phantomjs": "^1.9.18",
     "requirejs": "^2.1.20",
+    "rowdy": "^0.3.2",
+    "saucelabs": "^1.0.1",
+    "selenium-standalone": "^4.6.3",
+    "webdriverio": "^3.2.4",
     "webpack": "^1.12.2"
   }
 }

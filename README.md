@@ -30,6 +30,14 @@ Configure:
 
 **TODO: DOCUMENT**
 
+### Development
+
+Ports various servers run on:
+
+* [`3001`](http://127.0.0.1:3001/): Static / demo server.
+* [`3030`](http://127.0.0.1:3030/): Ephemeral server for functional tests.
+  Override via `TEST_FUNC_PORT` environment variable.
+
 ### Topics
 
 * **[Shared Libraries](docs/shared-libraries.md)**: A deep dive into how shared

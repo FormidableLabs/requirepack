@@ -16,13 +16,13 @@ $ npm run test-func
 After a `test-build` you can also run the test server:
 
 ```
-$ npm run test-server
+$ npm run server
 ```
 
 in a separate terminal, and then navigate to and `dist/*.html` scenario page
 to see the bundled loaders (baseline, RequirePack) in action. For example,
 to try out the `simple-amd` scenarios, navigate to:
-[http://127.0.0.1:3030/test/func/simple-amd/dist/]()
+[http://127.0.0.1:3001/test/func/simple-amd/dist/]()
 
 ### Scenarios
 

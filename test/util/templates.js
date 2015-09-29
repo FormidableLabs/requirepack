@@ -29,7 +29,7 @@ module.exports = {
           return [key, "\"" + val + "\""].join("=");
         }).join(" ");
 
-        return "    <script " + attrs +"></script>";
+        return "    <script " + attrs + "></script>";
       }),
       [
         "  </body>",
