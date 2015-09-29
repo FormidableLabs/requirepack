@@ -7,7 +7,10 @@
     "lint-client": "eslint -c .eslintrc-client test/func/*/src",
     "lint-server": "eslint -c .eslintrc-server lib test/func/*/*.config*.js test/func/*/build.js ",
     "lint": "npm run lint-client && npm run lint-server",
-    "test": "npm run lint"
+    "test-build": "node test/func/*/build.js",
+    "test-func": "echo 'TODO: Start FUNC TESTS'",
+    "test-server": "http-server -p 3030 .",
+    "test": "npm run lint && npm run test-build && npm run test-func"
   },
   "repository": {
     "type": "git",

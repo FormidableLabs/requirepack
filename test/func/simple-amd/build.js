@@ -47,7 +47,7 @@ var templates = module.exports.templates = function (callback) {
 
     function (cb) {
       writeHtml("requirejs-baseline-build.html", [
-        { src: "../../../node_modules/requirejs/require.js" },
+        { src: "../../../../node_modules/requirejs/require.js" },
         { src: "requirejs/lib.js" },
         { src: "requirejs/app1.js" },
         { src: "requirejs/app2.js" }
@@ -56,7 +56,7 @@ var templates = module.exports.templates = function (callback) {
 
     function (cb) {
       writeHtml("requirejs-baseline-almond.html", [
-        { src: "../../../node_modules/almond/almond.js" },
+        { src: "../../../../node_modules/almond/almond.js" },
         { src: "requirejs/lib.js" },
         { src: "requirejs/app1.js" },
         { src: "requirejs/app2.js" }
