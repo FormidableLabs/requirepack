@@ -133,8 +133,5 @@ var build = module.exports.build = function (callback) {
 if (require.main === module) {
   build(function (err) {
     if (err) { throw err; }
-    /*eslint-disable no-console*/
-    console.log("Done.");
-    /*eslint-enable no-console*/
   });
 }
