@@ -25,7 +25,5 @@ script:
   - npm run check-ci
 
   # Manually send coverage reports to coveralls.
-  # - Aggregate client results
-  # - Single server and func test results
   - ls  coverage/*/lcov.info | cat
   - cat coverage/*/lcov.info | ./node_modules/.bin/coveralls || echo "Coveralls upload failed"
