@@ -28,7 +28,7 @@ $ npm install --save requirepack
 
 Configure:
 
-**TODO: DOCUMENT**
+**`TODO(8): Document Configuration`**
 
 ### Development
 

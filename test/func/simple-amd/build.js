@@ -117,7 +117,10 @@ var buildRequire = function (callback) {
 };
 
 // Build interop.
-// TODO
+var buildRequirePack = function (callback) {
+  console.log("TODO IMPLEMENT REQUIREPACK");
+  callback();
+};
 
 // Build everything
 var build = module.exports.build = function (callback) {
@@ -125,7 +128,8 @@ var build = module.exports.build = function (callback) {
     clean: clean,
     templates: ["clean", templates],
     buildWebpack: ["clean", buildWebpack],
-    buildRequire: ["clean", buildRequire]
+    buildRequire: ["clean", buildRequire],
+    buildRequirePack: ["buildWebpack", "buildRequire", buildRequirePack]
   }, callback);
 };
 
