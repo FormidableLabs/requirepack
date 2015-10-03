@@ -30,6 +30,9 @@ We test various build / source file scenarios in `test/func` as follows:
 
 * [`simple-amd`](test/func/simple-amd): The most basic scenario. AMD, two entry
   points, one shared library and no external dependencies.
+* [`complex-amd`](test/func/complex-amd): More advanced scenario. AMD, two entry
+  points, and one shared library. But with HBS templates, vendor plugins and
+  alternating / overlapping path references.
 
 ### Functional Tests
 
