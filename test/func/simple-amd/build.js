@@ -55,19 +55,35 @@ var PAGES = module.exports.PAGES = {
   ],
 
   "requirepack-build.html": [
-    { src: "../../../../node_modules/requirejs/require.js" },
     { src: "webpack/lib.js" },
+    { src: "../../../../node_modules/requirejs/require.js" },
     { src: "requirepack/lib-interop.js" },
     { src: "requirejs/app1.js" },
     { src: "requirejs/app2.js" }
   ],
 
   "requirepack-almond.html": [
-    { src: "../../../../node_modules/almond/almond.js" },
     { src: "webpack/lib.js" },
+    { src: "../../../../node_modules/almond/almond.js" },
     { src: "requirepack/lib-interop.js" },
     { src: "requirejs/app1.js" },
     { src: "requirejs/app2.js" }
+  ],
+
+  "requirepack-build-mixed.html": [
+    { src: "webpack/lib.js" },
+    { src: "../../../../node_modules/requirejs/require.js" },
+    { src: "requirepack/lib-interop.js" },
+    { src: "webpack/app1.js" },
+    { src: "requirejs/app2.js" }
+  ],
+
+  "requirepack-almond-mixed.html": [
+    { src: "webpack/lib.js" },
+    { src: "../../../../node_modules/almond/almond.js" },
+    { src: "requirepack/lib-interop.js" },
+    { src: "requirejs/app1.js" },
+    { src: "webpack/app2.js" }
   ]
 };
 

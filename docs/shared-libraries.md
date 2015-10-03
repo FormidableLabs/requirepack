@@ -82,6 +82,17 @@ The RequireJS scheme is quite simple:
 So as long as _something, anything_ calls a `define` before `app*.js` is loaded,
 then those files can be omitted from the `app*.js` bundle.
 
+A sample series of script includes for both apps together would look like:
+
+```html
+<script src="almond.js"></script>
+<script src="requirejs/lib.js"></script>
+<script src="requirejs/app1.js"></script>
+<script src="requirejs/app2.js"></script>
+```
+
+With the almond loader.
+
 ### Webpack
 
 For Webpack, we use the [`dll`][wp-dll] and [`dll-user`][wp-dll-user] plugins.
@@ -124,7 +135,6 @@ module.exports = {
   ]
 };
 ```
-
 
 This translates to the following built files:
 
@@ -209,6 +219,66 @@ scheme:
 0: `app2.js` source
 1: app2(2)(2) -> lib(2) -> `foo.js` **link**
 2: `lib` bundle **link**
+```
+
+A sample series of script includes for both apps together would look like:
+
+```html
+<script src="webpack/lib.js"></script>
+<script src="webpack/app1.js"></script>
+<script src="webpack/app2.js"></script>
+```
+
+Without a separate loader (built in to prefix boilerplate of each file).
+
+### RequirePack
+
+RequirePack creates an interop layer to allow you to:
+
+* Load the Webpack shared library (`webpack/lib.js`)
+* Load a RequireJS loader like `almond`
+* Load the RequirePack interop generated file (`requirepack/lib-interop.js`)
+* Then load any number of RequireJS or Webpack `app1`, `app2`, etc. entry points
+
+The interop layer is simply a lookup table mapping RequireJS names to Webpack
+shared library index numbers via RequireJS `define`'s. The interop file for the
+above RequireJS / Webpack scenario is as follows:
+
+```js
+(function () {
+  // Get the Webpack DLL library off the window.
+  var lib = window["lib_b9c7be1ffce70ccbda4d"];
+  var def = window.define;
+
+  // Wrap index number for RequireJS callback.
+  function translate(num) { return function () { return lib(num); }; }
+
+  // Define RequireJS name -> Webpack index number mappings
+  def("foo", translate(2));
+  def("lib", translate(1));
+}());
+```
+
+For example, we could use the webpack lib and two RequireJS entry points with
+HTML that looks like:
+
+```html
+<script src="webpack/lib.js"></script>
+<script src="almond.js"></script>
+<script src="requirepack/lib-interop.js"></script>
+<script src="requirejs/app1.js"></script>
+<script src="requirejs/app2.js"></script>
+```
+
+We can even do more advanced use cases like mixed RequireJS and Webpack entry
+points:
+
+```
+<script src="webpack/lib.js"></script>
+<script src="../../../../node_modules/almond/almond.js"></script>
+<script src="requirepack/lib-interop.js"></script>
+<script src="requirejs/app1.js"></script>
+<script src="webpack/app2.js"></script>
 ```
 
 [webpack]: http://webpack.github.io/
