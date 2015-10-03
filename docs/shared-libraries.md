@@ -273,7 +273,7 @@ HTML that looks like:
 We can even do more advanced use cases like mixed RequireJS and Webpack entry
 points:
 
-```
+```html
 <script src="webpack/lib.js"></script>
 <script src="../../../../node_modules/almond/almond.js"></script>
 <script src="requirepack/lib-interop.js"></script>
