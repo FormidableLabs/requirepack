@@ -33,12 +33,13 @@
     "url": "https://github.com/FormidableLabs/requirepack/issues"
   },
   "dependencies": {
+    "amdetective": "0.0.2",
+    "async": "^1.4.2",
     "fs-extra": "^0.24.0",
     "lodash": "^3.10.1"
   },
   "devDependencies": {
     "almond": "^0.3.1",
-    "async": "^1.4.2",
     "chai": "^3.3.0",
     "coveralls": "^2.11.4",
     "eslint": "^1.5.1",

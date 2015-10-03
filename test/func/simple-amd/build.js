@@ -160,8 +160,8 @@ var build = module.exports.build = function (callback) {
 
 // Script
 if (require.main === module) {
-  //buildRequirePack/*TODO*/(function (err) {
-  build/*TODO*/(function (err) {
+  buildRequirePack/*TODO*/(function (err) {
+  //build/*TODO*/(function (err) {
     if (err) { throw err; }
   });
 }
