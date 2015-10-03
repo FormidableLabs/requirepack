@@ -9,7 +9,5 @@ var build = module.exports = new Build({
 });
 
 if (require.main === module) {
-  build.build(function (err) {
-    if (err) { throw err; }
-  });
+  build.run();
 }

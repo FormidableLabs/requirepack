@@ -198,3 +198,16 @@ Build.prototype.build = function (callback) {
     buildRequirePack: ["buildWebpack", "buildRequirejs", this.buildRequirePack.bind(this)]
   }, callback);
 };
+
+// Run script and process exit if bad.
+Build.prototype.run = function () {
+  var self = this;
+
+  self.build(function (err) {
+    if (err) {
+      /*eslint-disable no-console, no-process-exit*/
+      console.log("ERROR: " + self.scenario, err);
+      process.exit(1);
+    }
+  });
+};
