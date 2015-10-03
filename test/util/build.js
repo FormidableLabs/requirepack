@@ -17,7 +17,8 @@ var html = require("./templates").html;
  * Create builder.
  *
  * @param {Object} opts           Options object
- * @param {String} opts.destDir   Destination output directory.
+ * @param {String} opts.rootDir   Sceanrio root directory
+ * @param {String} opts.destDir   Destination output directory
  * @param {String} opts.buildDir  Built, shared library path from RequireJS
  * @returns {void}
  */
@@ -28,6 +29,9 @@ var Build = module.exports = function (opts) {
 
   this.destDir = opts.destDir || path.join(this.rootDir, "dist");
   this.buildDir = opts.buildDir || path.join(this.rootDir, "build");
+
+  // Scenario is relative to root of this project.
+  this.scenario = path.relative(path.join(__dirname, "../.."), this.rootDir);
 };
 
 // Declare and export which pages are created / tested.
