@@ -9,5 +9,6 @@ var build = module.exports = new Build({
 });
 
 if (require.main === module) {
-  build.run();
+  //TODObuild.run();
+  build.buildRequirePack(); // TODO REMOVE
 }

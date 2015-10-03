@@ -183,6 +183,7 @@ Build.prototype.buildRequirePack = function (callback) {
   requirepack.compile({
     requirejsConfig: path.join(this.rootDir, "requirejs.config"),
     requirejsLibrary: path.join(this.destDir, "requirejs/lib.js"),
+    webpackContext: require(path.join(this.rootDir, "webpack.config.lib")).context,
     webpackManifest: path.join(this.destDir, "webpack/lib-manifest.json"),
     output: path.join(this.destDir, "requirepack/lib-interop.js")
   }, callback);
