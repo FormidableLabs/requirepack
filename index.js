@@ -1,5 +1,9 @@
 "use strict";
 
+var Compiler = require("./lib/compiler");
+
 module.exports = {
-  compile: require("./lib/compile")
+  compile: function (opts, callback) {
+    return Compiler.compile(opts, callback);
+  }
 };

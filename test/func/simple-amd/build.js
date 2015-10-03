@@ -9,6 +9,7 @@ var _ = require("lodash");
 var async = require("async");
 var webpack = require("webpack");
 var requirejs = require("requirejs");
+var requirepack = require("../../../index");
 
 var html = require("../../util/templates").html;
 var DEST_DIR = path.join(__dirname, "dist");
@@ -118,8 +119,7 @@ var buildRequire = function (callback) {
 
 // Build interop.
 var buildRequirePack = function (callback) {
-  console.log("TODO IMPLEMENT REQUIREPACK");
-  callback();
+  requirepack.compile({}, callback);
 };
 
 // Build everything
