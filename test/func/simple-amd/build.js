@@ -9,6 +9,7 @@ var _ = require("lodash");
 var async = require("async");
 var webpack = require("webpack");
 var requirejs = require("requirejs");
+var requirejsConfig = require("./requirejs.config");
 var requirepack = require("../../../index");
 
 var html = require("../../util/templates").html;
@@ -119,7 +120,12 @@ var buildRequire = function (callback) {
 
 // Build interop.
 var buildRequirePack = function (callback) {
-  requirepack.compile({}, callback);
+  requirepack.compile({
+    requirejsConfig: requirejsConfig,
+    requirejsLibrary: path.join(DEST_DIR, "requirejs/lib.js"),
+    webpackManifest: path.join(DEST_DIR, "webpack/lib-manifest.json"),
+    output: path.join(DEST_DIR, "requirepack.js")
+  }, callback);
 };
 
 // Build everything
@@ -135,7 +141,7 @@ var build = module.exports.build = function (callback) {
 
 // Script
 if (require.main === module) {
-  build(function (err) {
+  buildRequirePack/*TODO: build*/(function (err) {
     if (err) { throw err; }
   });
 }
