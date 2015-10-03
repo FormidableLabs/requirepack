@@ -18,12 +18,15 @@ var BUILD_DIR = path.join(__dirname, "build");
 
 // Declare and export which pages are created / tested.
 var PAGES = module.exports.PAGES = {
+  // **Note**: No requirepack integration with straight lib, since webpack is base.
   "webpack-baseline.html": [
     { src: "webpack/lib.js" },
     { src: "webpack/app1.js" },
     { src: "webpack/app2.js" }
   ],
 
+  // **Note**: Don't have requirepack version because `lib` is live downloaded even if not properly
+  // bridged by requirepack interop.
   "requirejs-baseline-dev.html": [
     { src: "../../../../node_modules/requirejs/require.js" },
     { src: "../requirejs.config.js" },
@@ -47,6 +50,22 @@ var PAGES = module.exports.PAGES = {
   "requirejs-baseline-almond.html": [
     { src: "../../../../node_modules/almond/almond.js" },
     { src: "requirejs/lib.js" },
+    { src: "requirejs/app1.js" },
+    { src: "requirejs/app2.js" }
+  ],
+
+  "requirepack-build.html": [
+    { src: "../../../../node_modules/requirejs/require.js" },
+    { src: "webpack/lib.js" },
+    { src: "requirepack/lib-interop.js" },
+    { src: "requirejs/app1.js" },
+    { src: "requirejs/app2.js" }
+  ],
+
+  "requirepack-almond.html": [
+    { src: "../../../../node_modules/almond/almond.js" },
+    { src: "webpack/lib.js" },
+    { src: "requirepack/lib-interop.js" },
     { src: "requirejs/app1.js" },
     { src: "requirejs/app2.js" }
   ]
@@ -124,7 +143,7 @@ var buildRequirePack = function (callback) {
     requirejsConfig: requirejsConfig,
     requirejsLibrary: path.join(DEST_DIR, "requirejs/lib.js"),
     webpackManifest: path.join(DEST_DIR, "webpack/lib-manifest.json"),
-    output: path.join(DEST_DIR, "requirepack.js")
+    output: path.join(DEST_DIR, "requirepack/lib-interop.js")
   }, callback);
 };
 
@@ -141,7 +160,8 @@ var build = module.exports.build = function (callback) {
 
 // Script
 if (require.main === module) {
-  buildRequirePack/*TODO: build*/(function (err) {
+  //buildRequirePack/*TODO*/(function (err) {
+  build/*TODO*/(function (err) {
     if (err) { throw err; }
   });
 }

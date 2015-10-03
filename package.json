@@ -32,7 +32,10 @@
   "bugs": {
     "url": "https://github.com/FormidableLabs/requirepack/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "fs-extra": "^0.24.0",
+    "lodash": "^3.10.1"
+  },
   "devDependencies": {
     "almond": "^0.3.1",
     "async": "^1.4.2",
@@ -41,11 +44,9 @@
     "eslint": "^1.5.1",
     "eslint-config-defaults": "^6.0.0",
     "eslint-plugin-filenames": "^0.1.2",
-    "fs-extra": "^0.24.0",
     "guacamole": "^1.1.4",
     "http-server": "^0.8.5",
     "istanbul": "^0.3.21",
-    "lodash": "^3.10.1",
     "mocha": "^2.3.3",
     "phantomjs": "^1.9.18",
     "requirejs": "^2.1.20",
