@@ -10,5 +10,5 @@ var build = module.exports = new Build({
 
 if (require.main === module) {
   //TODObuild.run();
-  build.buildRequirePack(); // TODO REMOVE
+  build.buildRequirePack(); // TODO REMOVE & PLACE IN test `before`
 }
