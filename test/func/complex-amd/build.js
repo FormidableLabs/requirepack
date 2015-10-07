@@ -5,7 +5,12 @@
  */
 var Build = require("../../util/build");
 var build = module.exports = new Build({
-  rootDir: __dirname
+  rootDir: __dirname,
+  requirepack: {
+    alias: {
+      "hbs/handlebars": "handlebars/runtime"
+    }
+  }
 });
 
 if (require.main === module) {
