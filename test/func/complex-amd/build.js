@@ -12,7 +12,18 @@ var build = module.exports = new Build({
     ],
     alias: {
       "hbs/handlebars": "handlebars/runtime"
-    }
+    },
+    // Transforms occur in order and do not stop after first match.
+    transforms: [
+      // Match the NormalModuleReplacementPlugin path switch we do in Webpack
+      // for HBS files and the `hbs!` plugin
+      {
+        test: /^hbs!+/,
+        transform: function (name) {
+          return name.slice(4) + ".hbs";
+        }
+      }
+    ]
   }
 });
 
