@@ -40,10 +40,13 @@ var build = module.exports = new Build({
       // Also note that we could _instead_ do via manual `transforms`.
     }, webpackConfig.resolve.alias),
 
-    // Empties are whole token matches only.
-    empty: [
-      "hbs"
-    ]
+    // Templates are whole token matches only and are inline placed into
+    // the interop layer instead of `translate(NUM)` like normal.
+    templates: {
+      // HBS plugin needs to at least be an empty object for RequireJS and
+      // is unused by webpack.
+      "hbs": function () { return {}; }.toString() // "{}" would also work.
+    }
   }
 });
 

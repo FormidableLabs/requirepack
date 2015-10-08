@@ -35,6 +35,7 @@ describe("lib/compiler", function () {
   it("accepts webpack manifest path", function () {
     new Compiler({
       requirejsLibrary: "lib.js",
+      webpackContext: __dirname,
       webpackManifest: {
         name: "lib_b9c7be1ffce70ccbda4d",
         content: {
@@ -49,6 +50,7 @@ describe("lib/compiler", function () {
   it("accepts webpack manifest object", function () {
     new Compiler({
       requirejsLibrary: "lib.js",
+      webpackContext: __dirname,
       webpackManifest: WEBPACK_MANIFEST_PATH,
       output: "output.js"
     });
