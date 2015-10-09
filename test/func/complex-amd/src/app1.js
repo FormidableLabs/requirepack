@@ -7,6 +7,6 @@ define([
 ], function ($, header, message, divider) {
   $("#content")
     .append(header("app1", "App 1"))
-    .append(message("message 1"))
+    .append(message("msg1", "Message 1"))
     .append(divider());
 });

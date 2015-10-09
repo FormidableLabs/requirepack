@@ -20,6 +20,14 @@ describe(build.scenario, function () {
           expect(text).to.equal("App 2");
         })
 
+        // Check messages
+        .getText("#msg1").then(function (text) {
+          expect(text).to.equal("Message 1");
+        })
+        .getText("#msg2").then(function (text) {
+          expect(text).to.equal("Message 2");
+        })
+
         .finally(promiseDone(done));
     });
   });
