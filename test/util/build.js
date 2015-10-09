@@ -16,10 +16,11 @@ var html = require("./templates").html;
 /**
  * Create builder.
  *
- * @param {Object} opts           Options object
- * @param {String} opts.rootDir   Sceanrio root directory
- * @param {String} opts.destDir   Destination output directory
- * @param {String} opts.buildDir  Built, shared library path from RequireJS
+ * @param {Object} opts             Options object
+ * @param {String} opts.rootDir     Sceanrio root directory
+ * @param {String} opts.destDir     Destination output directory
+ * @param {String} opts.buildDir    Built, shared library path from RequireJS
+ * @param {String} opts.requirepack RequirePack config overrides.
  * @returns {void}
  */
 var Build = module.exports = function (opts) {
@@ -32,6 +33,9 @@ var Build = module.exports = function (opts) {
 
   // Scenario is relative to root of this project.
   this.scenario = path.relative(path.join(__dirname, "../.."), this.rootDir);
+
+  // Overrides for RP configuration
+  this.requirepack = opts.requirepack || {};
 };
 
 // Declare and export which pages are created / tested.
@@ -180,12 +184,13 @@ Build.prototype.buildRequirejs = function (callback) {
 
 // Build interop.
 Build.prototype.buildRequirePack = function (callback) {
-  requirepack.compile({
+  requirepack.compile(_.extend({
     requirejsConfig: path.join(this.rootDir, "requirejs.config"),
     requirejsLibrary: path.join(this.destDir, "requirejs/lib.js"),
+    webpackContext: require(path.join(this.rootDir, "webpack.config.lib")).context,
     webpackManifest: path.join(this.destDir, "webpack/lib-manifest.json"),
     output: path.join(this.destDir, "requirepack/lib-interop.js")
-  }, callback);
+  }, this.requirepack), callback);
 };
 
 // Build everything
@@ -197,4 +202,17 @@ Build.prototype.build = function (callback) {
     buildRequirejs: ["clean", this.buildRequirejs.bind(this)],
     buildRequirePack: ["buildWebpack", "buildRequirejs", this.buildRequirePack.bind(this)]
   }, callback);
+};
+
+// Run script and process exit if bad.
+Build.prototype.run = function () {
+  var self = this;
+
+  self.build(function (err) {
+    if (err) {
+      /*eslint-disable no-console, no-process-exit*/
+      console.log("ERROR: " + self.scenario, err);
+      process.exit(1);
+    }
+  });
 };
