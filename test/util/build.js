@@ -108,6 +108,7 @@ Build.prototype.PAGES = {
   "requirepack-almond-mixed.html": [
     { src: "webpack/lib.js" },
     { src: "../../../../node_modules/almond/almond.js" },
+    { src: "../requirejs.config.js" },
     { src: "requirepack/lib-interop.js" },
     { src: "requirejs/app1.js" },
     { src: "webpack/app2.js" }
