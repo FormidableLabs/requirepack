@@ -64,6 +64,7 @@ Build.prototype.PAGES = {
 
   "requirejs-baseline-build.html": [
     { src: "../../../../node_modules/requirejs/require.js" },
+    { src: "../requirejs.config.js" },
     { src: "requirejs/lib.js" },
     { src: "requirejs/app1.js" },
     { src: "requirejs/app2.js" }
@@ -71,6 +72,7 @@ Build.prototype.PAGES = {
 
   "requirejs-baseline-almond.html": [
     { src: "../../../../node_modules/almond/almond.js" },
+    { src: "../requirejs.config.js" },
     { src: "requirejs/lib.js" },
     { src: "requirejs/app1.js" },
     { src: "requirejs/app2.js" }
@@ -79,6 +81,7 @@ Build.prototype.PAGES = {
   "requirepack-build.html": [
     { src: "webpack/lib.js" },
     { src: "../../../../node_modules/requirejs/require.js" },
+    { src: "../requirejs.config.js" },
     { src: "requirepack/lib-interop.js" },
     { src: "requirejs/app1.js" },
     { src: "requirejs/app2.js" }
@@ -87,6 +90,7 @@ Build.prototype.PAGES = {
   "requirepack-almond.html": [
     { src: "webpack/lib.js" },
     { src: "../../../../node_modules/almond/almond.js" },
+    { src: "../requirejs.config.js" },
     { src: "requirepack/lib-interop.js" },
     { src: "requirejs/app1.js" },
     { src: "requirejs/app2.js" }
@@ -95,6 +99,7 @@ Build.prototype.PAGES = {
   "requirepack-build-mixed.html": [
     { src: "webpack/lib.js" },
     { src: "../../../../node_modules/requirejs/require.js" },
+    { src: "../requirejs.config.js" },
     { src: "requirepack/lib-interop.js" },
     { src: "webpack/app1.js" },
     { src: "requirejs/app2.js" }
