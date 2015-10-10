@@ -12,10 +12,7 @@
 
     // HBS options / build.
     //
-    // TODO: Switch to `hbs/handlebars.runtime`. The
-    // `require-handlebars-plugin` is just the worst at this. We've got the
-    // **full** compiler currently in the RequireJS bundle. But, as we're
-    // targeting interop with the Webpack HBS, skipping for now.
+    // Note: We've got the **full** compiler currently in the RequireJS bundle.
     hbs: {
       helpers: false
     },
