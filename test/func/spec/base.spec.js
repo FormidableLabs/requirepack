@@ -15,7 +15,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || "test-func";
 // **Note** Can stash adapter, but not `adapter.client` because it is a lazy
 // getter that relies on the global `before|beforeEach` setup.
 var adapter = global.adapter;
-var ELEM_WAIT = 200; // Global wait.
+var ELEM_WAIT = 500; // Global wait.
 
 adapter.before();
 before(function (done) {
