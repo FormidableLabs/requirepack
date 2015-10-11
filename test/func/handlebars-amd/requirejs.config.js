@@ -11,10 +11,8 @@
     baseUrl: "./src",
 
     // HBS options / build.
-    //
-    // Note: We've got the **full** compiler currently in the RequireJS bundle.
     hbs: {
-      helpers: false
+      helperDirectory: "helpers/"
     },
     pragmasOnSave: {
       // Removes Handlebars.Parser code (used to compile template strings).
@@ -23,6 +21,15 @@
       excludeHbs: true,
       // Removes i18n precompiler, handlebars and json2
       excludeAfterBuild: true
+    },
+
+
+    map: {
+      "*": {
+        // Direct imports can only use runtime.
+        "handlebars": "hbs/handlebars.runtime",
+        "Handlebars": "hbs/handlebars.runtime"
+      }
     },
 
     paths: {
