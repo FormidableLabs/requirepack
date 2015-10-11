@@ -23,12 +23,11 @@
       excludeAfterBuild: true
     },
 
-
     map: {
       "*": {
-        // Direct imports can only use runtime.
-        "handlebars": "hbs/handlebars.runtime",
-        "Handlebars": "hbs/handlebars.runtime"
+        // Use full HBS compiler in dev. mode.
+        "handlebars": "hbs/handlebars",
+        "Handlebars": "hbs/handlebars"
       }
     },
 

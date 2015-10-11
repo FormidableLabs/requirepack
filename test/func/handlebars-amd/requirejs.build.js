@@ -20,6 +20,14 @@
   ],
   optimize: "none",
 
+  map: {
+    "*": {
+      // Use HBS runtime in prod. mode.
+      "handlebars": "hbs/handlebars.runtime",
+      "Handlebars": "hbs/handlebars.runtime"
+    }
+  },
+
   // The hbs plugin does not properly exclude `hbs/handlebars`, the compiler.
   // See: https://github.com/SlexAxton/require-handlebars-plugin/issues/77
   //
