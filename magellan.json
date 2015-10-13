@@ -1,0 +1,9 @@
+{
+  "mocha_tests": [
+    "test/func/complex-amd/spec"
+  ],
+  "mocha_opts": "test/func/mocha.opts",
+  "framework": "rowdy-mocha",
+  "sauce": false,
+  "browser": "phantomjs"
+}

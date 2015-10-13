@@ -61,6 +61,7 @@
     "selenium-standalone": "^4.6.3",
     "sinon": "^1.17.1",
     "sinon-chai": "^2.8.0",
+    "testarmada-magellan": "^2.0.0",
     "webdriverio": "^3.2.4",
     "webpack": "^1.12.2"
   }
