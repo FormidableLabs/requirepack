@@ -51,7 +51,7 @@
     "handlebars-loader": "^1.1.4",
     "http-server": "^0.8.5",
     "istanbul": "^0.3.21",
-    "jquery": "^2.1.4",
+    "jquery": "^1.11.3",
     "mocha": "^2.3.3",
     "phantomjs": "^1.9.18",
     "require-handlebars-plugin": "^1.0.0",
