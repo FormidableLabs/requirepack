@@ -57,6 +57,7 @@
     "require-handlebars-plugin": "^1.0.0",
     "requirejs": "^2.1.20",
     "rowdy": "^0.3.3",
+    "sauce-connect-launcher": "^0.13.0",
     "saucelabs": "^1.0.1",
     "selenium-standalone": "^4.6.3",
     "sinon": "^1.17.1",

@@ -10,15 +10,56 @@
 process.env.NODE_ENV = process.env.NODE_ENV || "test-func";
 
 // ----------------------------------------------------------------------------
+// Sauce Connect Tunnel
+// ----------------------------------------------------------------------------
+var rowdy = require("rowdy");
+var isSauceLabs = rowdy.config.setting.isSauceLabs;
+
+if (isSauceLabs) {
+  var connect = require("sauce-connect-launcher");
+  var connectPs;
+
+  before(function (done) {
+    // SC takes a **long** time.
+    this.timeout(60000);
+
+    connect({
+      username: rowdy.config.setting.host,
+      accessKey: rowdy.config.setting.key,
+      verbose: true
+    }, function (err, ps) {
+      if (err) { return done(err); }
+      // Stash process.
+      connectPs = ps;
+
+      // Patch settings
+      //obj.desiredCapabilities.tunnelIdentifier =
+
+      done();
+    });
+  });
+
+  after(function (done) {
+    if (connectPs) {
+      this.timeout(30000);
+      return connectPs.close(done);
+    }
+
+    done();
+  });
+}
+
+// ----------------------------------------------------------------------------
 // Selenium (Webdriverio/Rowdy) initialization
 // ----------------------------------------------------------------------------
 // **Note** Can stash adapter, but not `adapter.client` because it is a lazy
 // getter that relies on the global `before|beforeEach` setup.
 var adapter = global.adapter;
-var ELEM_WAIT = 500; // Global wait.
+var ELEM_WAIT = isSauceLabs ? 2000 : 500; // Global wait.
 
 adapter.before();
 before(function (done) {
+  if (isSauceLabs) { this.timeout(20000); }
   adapter.client
     // Set timeout for waiting on elements.
     .timeoutsImplicitWait(ELEM_WAIT)
