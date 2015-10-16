@@ -40,9 +40,6 @@ if (isSauceLabs && process.env.LAUNCH_SAUCE_CONNECT === "true") {
   });
 
   after(function (done) {
-    /*eslint-disable no-console*/
-    // TODO: REMOVE
-    console.log("TODO HERE AFTER CONNECT", connectPs.close);
     if (connectPs) {
       this.timeout(30000);
       return connectPs.close(done);
@@ -79,6 +76,7 @@ adapter.after();
 var APP_PORT = process.env.TEST_FUNC_PORT || 3030;
 var APP_HOST = process.env.TEST_FUNC_HOST || "127.0.0.1";
 var httpServer = require("http-server");
+var enableDestroy = require("server-destroy");
 var server;
 
 // ----------------------------------------------------------------------------
@@ -96,14 +94,12 @@ before(function () {
 before(function (done) {
   server = httpServer.createServer();
   server.listen(APP_PORT, APP_HOST, done);
+  enableDestroy(server.server);
 });
 
 after(function (done) {
-  /*eslint-disable no-console*/
-  console.log("TODO HERE AFTER BASE SPEC SERVER", server.server.close);
-  // TODO: REMOVE
   if (!(server && server.server)) { return done(); }
   // `http-server` doesn't pass the close callback, so we hack into the
   // underlying implementation. Sigh.
-  server.server.close(done);
+  server.server.destroy(done);
 });

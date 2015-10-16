@@ -60,6 +60,7 @@
     "sauce-connect-launcher": "^0.13.0",
     "saucelabs": "^1.0.1",
     "selenium-standalone": "^4.6.3",
+    "server-destroy": "^1.0.1",
     "sinon": "^1.17.1",
     "sinon-chai": "^2.8.0",
     "webdriverio": "^3.2.4",
