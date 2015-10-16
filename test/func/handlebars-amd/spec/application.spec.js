@@ -5,7 +5,7 @@ var promiseDone = require("../../../util/promise-done");
 var build = require("../build");
 
 describe(build.scenario, function () {
-  Object.keys(build.PAGES).forEach(function (page) {
+  build.getTestPages().forEach(function (page) {
     it(page, function (done) {
       var url = global.TEST_FUNC_BASE_URL + path.join(build.scenario, "dist", page);
 

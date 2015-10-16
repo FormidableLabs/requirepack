@@ -54,7 +54,8 @@ Build.prototype.PAGES = {
     { src: "../requirejs.config.js" },
     function () {
       require.config({
-        baseUrl: "../src"
+        baseUrl: "../src",
+        waitSeconds: 0
       });
       require(["lib"], function () {
         require(["app1", "app2"]);
@@ -113,6 +114,17 @@ Build.prototype.PAGES = {
     { src: "requirejs/app1.js" },
     { src: "webpack/app2.js" }
   ]
+};
+
+// Provide pages to test.
+Build.prototype.getTestPages = function () {
+  var isSauceLabs = require("rowdy").config.setting.isSauceLabs;
+
+  return _(this.PAGES)
+    .keys()
+    // We do not test RJS in dev mode on Sauce because the latency just kills everything.
+    .filter(function (page) { return !isSauceLabs || page !== "requirejs-baseline-dev.html"; })
+    .value();
 };
 
 // Helpers

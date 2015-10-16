@@ -1,5 +1,5 @@
 "use strict";
-/*eslint-disable max-statements*/
+/*eslint-disable max-statements, no-invalid-this */
 
 /**
  * Base server unit test initialization / global before/after's.
@@ -55,7 +55,7 @@ if (isSauceLabs) {
 // **Note** Can stash adapter, but not `adapter.client` because it is a lazy
 // getter that relies on the global `before|beforeEach` setup.
 var adapter = global.adapter;
-var ELEM_WAIT = isSauceLabs ? 2000 : 500; // Global wait.
+var ELEM_WAIT = isSauceLabs ? 5000 : 500; // Global wait.
 
 adapter.before();
 before(function (done) {
