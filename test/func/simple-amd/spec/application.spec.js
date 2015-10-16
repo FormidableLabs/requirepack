@@ -5,6 +5,11 @@ var promiseDone = require("../../../util/promise-done");
 var build = require("../build");
 
 describe(build.scenario, function () {
+  // Extra build to force coverage.
+  before(function (done) {
+    build.buildRequirePack(done);
+  });
+
   build.getTestPages().forEach(function (page) {
     it(page, function (done) {
       var url = global.TEST_FUNC_BASE_URL + path.join(build.scenario, "dist", page);
