@@ -15,7 +15,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || "test-func";
 var rowdy = require("rowdy");
 var isSauceLabs = rowdy.config.setting.isSauceLabs;
 
-if (isSauceLabs) {
+if (isSauceLabs && process.env.LAUNCH_SAUCE_CONNECT === "true") {
   var connect = require("sauce-connect-launcher");
   var connectPs;
 
