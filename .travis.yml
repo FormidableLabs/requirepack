@@ -22,20 +22,19 @@ before_script:
 
 env:
   global:
+    - SAUCE_CONNECT_TUNNEL_ID=$TRAVIS_JOB_NUMBER
     - SAUCE_USERNAME=requirepack
     - secure: "Gg2no6CkOreDPINT4xoJQPV/93Wq7MxZ7fwgATucuze9KYdidJaKFY8nEx3oJshFtPZ6t46JXxlVrR6n9De720R5RefHUBpuSVVzDedXsdYHXyjh6eNj1z88zteUcLp62hGipvAOrXUeC/l8OuCMCjeqIJtICYF4VJF7RlOyc5RnONOID0u62bogaGnwnHqTH/NlBVLjYDvPGrHhX2FB0TNQaRA89AaE69GyaCSFunEigpA48b/ogfHTF6OfHIvAvtLZf1hrQxGrf854snsqi/yi7+3Kz0m6EABINVGNmD29FqPteR5o7ZPquXt8A8IicL8omFM0jxgU4ma0hRFPvzZLaApFpsCtKfkN9h75LvFkTHkBNXXlaS/ZGMgxWzng6x7jOHxnoczoC2GrqPB48H0kZggHUa7O10gFhmmkbJOywAWv+X2cUaINL/Zn/mxons3JKa1ojb4DDT05TlpUDKv/zPhCAg0fB35GR2/XaZXs1wA8/2fA11VHHfB8Wea91sV+V+3L4H3PD5UueHEV4pE40t54GkjrLVr1OSFIqkDjgVHEkmHJQrx9uVoON6uWT7TwNNK9v2Nt9pRyIYFlHdm1S7pb6h279meN7NC9DueMXp3CYzTwWPgzHGg032tBZ8ga4Nr7wLYZu40Ql+h7D3aw4TWKyPNRo5YM3HkxqRc="
 
 addons:
-  sauce_connect:
-    username: "requirepack"
-    access_key:
-      secure: "Bfed/J+/Xb1rzIsb3T+zLdXNaslNIia6AK4S52SkL59g4B24+PDMig83TBGpR5H8CmW3TZH4owSJ2PpHurq4cIp2xInqUj7ipNfsiRgdYj2iVZJMdq8U5oGv3V5fT5+VuFmMzwH9Aen+k8CVUZ5WLzY8baqixQhBR0D7uExePaG4aKLob5S81hEy6EXgst4bPfho4mi5v1b09MfUCVUnFe9is/obmPFzir9eGGoITW7Vf2z6WPqmdNr/cPl2gUs9QSvbc5YKp7BaSc8TxvgJ/g4jOdWFHtOmI8jC+He08p9Ft63J5GgC30L6unhBz+rncS1H5rYDssTgC52Hou9I4D+R7C4lbJ/JdiWBScAZNMMMPevxZxgrx2MQ6Pr2FvrKhgWjSSSAh6Uw8Gx2C5OXqqGyalmMea3nBB/AgD/S1rxvFzZ8OalI3TtDxMG/ryL3pcC4SRDWVaYeb24kW6Gq/0gcHNY6HREM3VRrZnvtwgOWghijmtNw6a699SYJ+jt5YIW8F/zU+JVZnq2UKB2RPl7mDT8JXjslOKqU8jLOVQNah/RBpsNeJDdiZQ6xHsroPORN14lUeZyHUBFD4SMPPsQAInmcr1lbRqHiYYkh2aaCDBZc5r1/+G05eYldQJs2hWZQy+DDd5raNLMj9hyrRTCAAweBftFoRKzeSSA/AyU="
+  sauce_connect: true
 
 script:
   # Run all base checks (with FF browser for functional tests).
   - npm run check-ci
 
   # Sauce Labs
+  - echo "SAUCE_CONNECT_TUNNEL_ID: $SAUCE_CONNECT_TUNNEL_ID"
   - ROWDY_SETTINGS="sauceLabs.IE_8_Windows_2008_Desktop" npm run test-func
   # - ROWDY_SETTINGS="sauceLabs.IE_9_Windows_2008_Desktop" npm run test-func
   # - ROWDY_SETTINGS="sauceLabs.IE_10_Windows_2012_Desktop" npm run test-func
