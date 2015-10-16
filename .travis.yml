@@ -37,9 +37,9 @@ script:
 
   # Sauce Labs
   - ROWDY_SETTINGS="sauceLabs.IE_8_Windows_2008_Desktop" npm run test-func
-  - ROWDY_SETTINGS="sauceLabs.IE_9_Windows_2008_Desktop" npm run test-func
-  - ROWDY_SETTINGS="sauceLabs.IE_10_Windows_2012_Desktop" npm run test-func
-  - ROWDY_SETTINGS="sauceLabs.safari_8_OS_X_10_10_Desktop" npm run test-func
+  # - ROWDY_SETTINGS="sauceLabs.IE_9_Windows_2008_Desktop" npm run test-func
+  # - ROWDY_SETTINGS="sauceLabs.IE_10_Windows_2012_Desktop" npm run test-func
+  # - ROWDY_SETTINGS="sauceLabs.safari_8_OS_X_10_10_Desktop" npm run test-func
 
   # Manually send coverage reports to coveralls.
   - ls  coverage/*/lcov.info | cat
