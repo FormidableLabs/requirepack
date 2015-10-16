@@ -15,7 +15,7 @@ describe(build.scenario, function () {
 
         // Check headings
         .getText("#app1").then(function (text) {
-          expect(text).to.equal("App 13");
+          expect(text).to.equal("App 1");
         })
         .getText("#app2").then(function (text) {
           expect(text).to.equal("App 2");
