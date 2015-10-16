@@ -78,6 +78,7 @@ var APP_HOST = process.env.TEST_FUNC_HOST || "127.0.0.1";
 var httpServer = require("http-server");
 var enableDestroy = require("server-destroy");
 var server;
+var realServer;
 
 // ----------------------------------------------------------------------------
 // Globals
@@ -94,12 +95,17 @@ before(function () {
 before(function (done) {
   server = httpServer.createServer();
   server.listen(APP_PORT, APP_HOST, done);
-  enableDestroy(server.server);
+
+  // `http-server` doesn't pass enough of the underlying server, so we capture it.
+  realServer = server.server;
+
+  // Wrap the server with a "REALLY REALLY KILL IT!" `destroy` method.
+  enableDestroy(realServer);
 });
 
 after(function (done) {
-  if (!(server && server.server)) { return done(); }
-  // `http-server` doesn't pass the close callback, so we hack into the
-  // underlying implementation. Sigh.
-  server.server.destroy(done);
+  if (!realServer) { return done(); }
+
+  // Take that server!
+  realServer.destroy(done);
 });
