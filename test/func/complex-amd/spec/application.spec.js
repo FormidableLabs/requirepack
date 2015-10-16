@@ -12,6 +12,11 @@ describe(build.scenario, function () {
       global.adapter.client
         .url(url)
 
+        // Check errors
+        .getText("#error").then(function (text) {
+          expect(text).to.not.be.ok;
+        })
+
         // Check headings
         .getText("#app1").then(function (text) {
           expect(text).to.equal("App 1");

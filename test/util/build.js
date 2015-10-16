@@ -118,13 +118,7 @@ Build.prototype.PAGES = {
 
 // Provide pages to test.
 Build.prototype.getTestPages = function () {
-  var isSauceLabs = require("rowdy").config.setting.isSauceLabs;
-
-  return _(this.PAGES)
-    .keys()
-    // We do not test RJS in dev mode on Sauce because the latency just kills everything.
-    .filter(function (page) { return !isSauceLabs || page !== "requirejs-baseline-dev.html"; })
-    .value();
+  return _.keys(this.PAGES);
 };
 
 // Helpers
