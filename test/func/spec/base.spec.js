@@ -40,6 +40,9 @@ if (isSauceLabs && process.env.LAUNCH_SAUCE_CONNECT === "true") {
   });
 
   after(function (done) {
+    /*eslint-disable no-console*/
+    // TODO: REMOVE
+    console.log("TODO HERE AFTER CONNECT", connectPs.close);
     if (connectPs) {
       this.timeout(30000);
       return connectPs.close(done);
@@ -96,6 +99,9 @@ before(function (done) {
 });
 
 after(function (done) {
+  /*eslint-disable no-console*/
+  console.log("TODO HERE AFTER BASE SPEC SERVER", server.server.close);
+  // TODO: REMOVE
   if (!(server && server.server)) { return done(); }
   // `http-server` doesn't pass the close callback, so we hack into the
   // underlying implementation. Sigh.
