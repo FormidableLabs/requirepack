@@ -21,7 +21,20 @@ module.exports = {
         "    <title>Demo</title>",
         "  </head>",
         "  <body>",
-        "    <div id=\"content\" />"
+        "    <div id=\"content\"></div>",
+        "    <div id=\"error\"></div>",
+        "    <script>",
+        "      window.onerror = function (msg, file, line, col, error) {",
+        "        var content = document.querySelector('#error');",
+        "        content.innerHTML += '<code>'",
+        "          + 'msg: ' + msg + '<br />\\n'",
+        "          + 'file: ' + file + '<br />\\n'",
+        "          + 'line: ' + line + '<br />\\n'",
+        "          + 'col: ' + col + '<br />\\n'",
+        "          + 'error: ' + error + '<br />\\n'",
+        "          + '</code>';",
+        "      };",
+        "    </script>"
       ],
       (scripts || []).map(function (script) {
         // Strings are treated as inline functions to wrap in a closure.

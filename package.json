@@ -54,13 +54,16 @@
     "jquery": "^1.11.3",
     "mocha": "^2.3.3",
     "phantomjs": "^1.9.18",
-    "require-handlebars-plugin": "^1.0.0",
+    "require-handlebars-plugin": "FormidableLabs/require-handlebars-plugin#bug-ie8-forEach",
     "requirejs": "^2.1.20",
-    "rowdy": "^0.3.2",
+    "rowdy": "^0.3.4",
+    "sauce-connect-launcher": "^0.13.0",
     "saucelabs": "^1.0.1",
     "selenium-standalone": "^4.6.3",
+    "server-destroy": "^1.0.1",
     "sinon": "^1.17.1",
     "sinon-chai": "^2.8.0",
+    "tree-kill": "^1.0.0",
     "webdriverio": "^3.2.4",
     "webpack": "^1.12.2"
   }

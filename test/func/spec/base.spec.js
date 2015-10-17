@@ -1,5 +1,5 @@
 "use strict";
-/*eslint-disable max-statements*/
+/*eslint-disable max-statements, no-invalid-this */
 
 /**
  * Base server unit test initialization / global before/after's.
@@ -10,15 +10,56 @@
 process.env.NODE_ENV = process.env.NODE_ENV || "test-func";
 
 // ----------------------------------------------------------------------------
+// Sauce Connect Tunnel
+// ----------------------------------------------------------------------------
+var rowdy = require("rowdy");
+var isSauceLabs = rowdy.config.setting.isSauceLabs;
+
+if (isSauceLabs && process.env.LAUNCH_SAUCE_CONNECT === "true") {
+  var connect = require("sauce-connect-launcher");
+  var connectPs;
+
+  before(function (done) {
+    // SC takes a **long** time.
+    this.timeout(60000);
+
+    connect({
+      username: rowdy.config.setting.host,
+      accessKey: rowdy.config.setting.key,
+      verbose: true
+    }, function (err, ps) {
+      if (err) { return done(err); }
+      // Stash process.
+      connectPs = ps;
+
+      // Patch settings
+      //obj.desiredCapabilities.tunnelIdentifier =
+
+      done();
+    });
+  });
+
+  after(function (done) {
+    if (connectPs) {
+      this.timeout(30000);
+      return connectPs.close(done);
+    }
+
+    done();
+  });
+}
+
+// ----------------------------------------------------------------------------
 // Selenium (Webdriverio/Rowdy) initialization
 // ----------------------------------------------------------------------------
 // **Note** Can stash adapter, but not `adapter.client` because it is a lazy
 // getter that relies on the global `before|beforeEach` setup.
 var adapter = global.adapter;
-var ELEM_WAIT = 500; // Global wait.
+var ELEM_WAIT = isSauceLabs ? 5000 : 500; // Global wait.
 
 adapter.before();
 before(function (done) {
+  if (isSauceLabs) { this.timeout(20000); }
   adapter.client
     // Set timeout for waiting on elements.
     .timeoutsImplicitWait(ELEM_WAIT)
@@ -35,7 +76,9 @@ adapter.after();
 var APP_PORT = process.env.TEST_FUNC_PORT || 3030;
 var APP_HOST = process.env.TEST_FUNC_HOST || "127.0.0.1";
 var httpServer = require("http-server");
+var enableDestroy = require("server-destroy");
 var server;
+var realServer;
 
 // ----------------------------------------------------------------------------
 // Globals
@@ -50,13 +93,21 @@ before(function () {
 // App server
 // ----------------------------------------------------------------------------
 before(function (done) {
+  if (process.env.TRAVIS === "true") { return done(); }
+
   server = httpServer.createServer();
   server.listen(APP_PORT, APP_HOST, done);
+
+  // `http-server` doesn't pass enough of the underlying server, so we capture it.
+  realServer = server.server;
+
+  // Wrap the server with a "REALLY REALLY KILL IT!" `destroy` method.
+  enableDestroy(realServer);
 });
 
 after(function (done) {
-  if (!(server && server.server)) { return done(); }
-  // `http-server` doesn't pass the close callback, so we hack into the
-  // underlying implementation. Sigh.
-  server.server.close(done);
+  if (!realServer) { return done(); }
+
+  // Take that server!
+  realServer.destroy(done);
 });

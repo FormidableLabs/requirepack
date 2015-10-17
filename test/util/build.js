@@ -54,7 +54,8 @@ Build.prototype.PAGES = {
     { src: "../requirejs.config.js" },
     function () {
       require.config({
-        baseUrl: "../src"
+        baseUrl: "../src",
+        waitSeconds: 0
       });
       require(["lib"], function () {
         require(["app1", "app2"]);
@@ -113,6 +114,11 @@ Build.prototype.PAGES = {
     { src: "requirejs/app1.js" },
     { src: "webpack/app2.js" }
   ]
+};
+
+// Provide pages to test.
+Build.prototype.getTestPages = function () {
+  return _.keys(this.PAGES);
 };
 
 // Helpers

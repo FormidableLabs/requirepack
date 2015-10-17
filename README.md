@@ -1,9 +1,12 @@
-[![Travis Status][trav_img]][trav_site]
-
 RequirePack
 ===========
 
 [Webpack][webpack] + [RequireJS][requirejs] shared library interoperability!
+
+[![Travis Status][trav_img]][trav_site]
+[![Coverage Status][cov_img]][cov_site]
+
+[![Sauce Test Status][sauce_img]][sauce_site]
 
 Webpack and RequireJS both can consume AMD code straight up. Which means if you
 are in a transitional / complex scenario where you want _some_ code to load
@@ -53,3 +56,9 @@ Ports various servers run on:
 [rjs-exclude]: https://github.com/jrburke/r.js/blob/master/build/example.build.js#L388-L398
 [trav_img]: https://api.travis-ci.org/FormidableLabs/requirepack.svg
 [trav_site]: https://travis-ci.org/FormidableLabs/requirepack
+[sauce]: https://saucelabs.com
+[sauce_img]: https://saucelabs.com/browser-matrix/requirepack.svg
+[sauce_site]: https://saucelabs.com/u/requirepack
+[cov]: https://coveralls.io
+[cov_img]: https://img.shields.io/coveralls/FormidableLabs/requirepack.svg
+[cov_site]: https://coveralls.io/r/FormidableLabs/requirepack
