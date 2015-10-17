@@ -38,7 +38,10 @@ script:
   - npm run check-ci
 
   # Sauce Labs
-  - node test/util/run-concurrent.js "npm run test-func" '[ { "ROWDY_SETTINGS":"sauceLabs.IE_8_Windows_2008_Desktop" }, { "ROWDY_SETTINGS":"sauceLabs.IE_9_Windows_2008_Desktop" } ]'
+  - >-
+    node test/util/run-concurrent.js "npm run test-func"
+    '[ { "ROWDY_SETTINGS":"sauceLabs.IE_8_Windows_2008_Desktop" },
+    { "ROWDY_SETTINGS":"sauceLabs.IE_9_Windows_2008_Desktop" } ]'
 
   # TODO: Figure out / remove
   # - ROWDY_SETTINGS="sauceLabs.IE_8_Windows_2008_Desktop" npm run test-func
