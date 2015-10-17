@@ -39,7 +39,11 @@ async.map(envObjs, function (env, cb) {
 
   proc.on("close", function (code) {
     if (!err && code !== 0) {
-      err = new Error("non-zero exit of " + args[2] + " with: " + code);
+      err = new Error(
+        "non-zero exit of " + args[2] +
+        " w/ env: " + JSON.stringify(env) +
+        " w/ code: " + code);
+
       err.code = code;
     }
 
