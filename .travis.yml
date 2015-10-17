@@ -11,6 +11,14 @@ branches:
   only:
     - master
 
+env:
+  global:
+    - TEST_FUNC_PORT=3030
+    - TEST_FUNC_HOST=127.0.0.1
+    - SAUCE_CONNECT_TUNNEL_ID=$TRAVIS_JOB_NUMBER
+    - SAUCE_USERNAME=requirepack
+    - secure: "Gg2no6CkOreDPINT4xoJQPV/93Wq7MxZ7fwgATucuze9KYdidJaKFY8nEx3oJshFtPZ6t46JXxlVrR6n9De720R5RefHUBpuSVVzDedXsdYHXyjh6eNj1z88zteUcLp62hGipvAOrXUeC/l8OuCMCjeqIJtICYF4VJF7RlOyc5RnONOID0u62bogaGnwnHqTH/NlBVLjYDvPGrHhX2FB0TNQaRA89AaE69GyaCSFunEigpA48b/ogfHTF6OfHIvAvtLZf1hrQxGrf854snsqi/yi7+3Kz0m6EABINVGNmD29FqPteR5o7ZPquXt8A8IicL8omFM0jxgU4ma0hRFPvzZLaApFpsCtKfkN9h75LvFkTHkBNXXlaS/ZGMgxWzng6x7jOHxnoczoC2GrqPB48H0kZggHUa7O10gFhmmkbJOywAWv+X2cUaINL/Zn/mxons3JKa1ojb4DDT05TlpUDKv/zPhCAg0fB35GR2/XaZXs1wA8/2fA11VHHfB8Wea91sV+V+3L4H3PD5UueHEV4pE40t54GkjrLVr1OSFIqkDjgVHEkmHJQrx9uVoON6uWT7TwNNK9v2Nt9pRyIYFlHdm1S7pb6h279meN7NC9DueMXp3CYzTwWPgzHGg032tBZ8ga4Nr7wLYZu40Ql+h7D3aw4TWKyPNRo5YM3HkxqRc="
+
 before_install:
   # GUI for real browsers.
   - export DISPLAY=:99.0
@@ -19,12 +27,8 @@ before_install:
 before_script:
   # Install dev. stuff (e.g., selenium drivers).
   - npm run install-dev
-
-env:
-  global:
-    - SAUCE_CONNECT_TUNNEL_ID=$TRAVIS_JOB_NUMBER
-    - SAUCE_USERNAME=requirepack
-    - secure: "Gg2no6CkOreDPINT4xoJQPV/93Wq7MxZ7fwgATucuze9KYdidJaKFY8nEx3oJshFtPZ6t46JXxlVrR6n9De720R5RefHUBpuSVVzDedXsdYHXyjh6eNj1z88zteUcLp62hGipvAOrXUeC/l8OuCMCjeqIJtICYF4VJF7RlOyc5RnONOID0u62bogaGnwnHqTH/NlBVLjYDvPGrHhX2FB0TNQaRA89AaE69GyaCSFunEigpA48b/ogfHTF6OfHIvAvtLZf1hrQxGrf854snsqi/yi7+3Kz0m6EABINVGNmD29FqPteR5o7ZPquXt8A8IicL8omFM0jxgU4ma0hRFPvzZLaApFpsCtKfkN9h75LvFkTHkBNXXlaS/ZGMgxWzng6x7jOHxnoczoC2GrqPB48H0kZggHUa7O10gFhmmkbJOywAWv+X2cUaINL/Zn/mxons3JKa1ojb4DDT05TlpUDKv/zPhCAg0fB35GR2/XaZXs1wA8/2fA11VHHfB8Wea91sV+V+3L4H3PD5UueHEV4pE40t54GkjrLVr1OSFIqkDjgVHEkmHJQrx9uVoON6uWT7TwNNK9v2Nt9pRyIYFlHdm1S7pb6h279meN7NC9DueMXp3CYzTwWPgzHGg032tBZ8ga4Nr7wLYZu40Ql+h7D3aw4TWKyPNRo5YM3HkxqRc="
+  - node_modules/.bin/selenium-standalone start &
+  - node_modules/.bin/http-server -a $TEST_FUNC_HOST -p $TEST_FUNC_PORT &
 
 addons:
   sauce_connect: true

@@ -93,6 +93,8 @@ before(function () {
 // App server
 // ----------------------------------------------------------------------------
 before(function (done) {
+  if (process.env.TRAVIS === "true") { return done(); }
+
   server = httpServer.createServer();
   server.listen(APP_PORT, APP_HOST, done);
 
