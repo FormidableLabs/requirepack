@@ -1,11 +1,12 @@
-[![Travis Status][trav_img]][trav_site]
-[![Coverage Status][cov_img]][cov_site]
-[![Sauce Test Status][sauce_img]][sauce_site]
-
 RequirePack
 ===========
 
 [Webpack][webpack] + [RequireJS][requirejs] shared library interoperability!
+
+[![Travis Status][trav_img]][trav_site]
+[![Coverage Status][cov_img]][cov_site]
+
+[![Sauce Test Status][sauce_img]][sauce_site]
 
 Webpack and RequireJS both can consume AMD code straight up. Which means if you
 are in a transitional / complex scenario where you want _some_ code to load
