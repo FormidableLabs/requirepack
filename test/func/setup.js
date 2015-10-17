@@ -19,7 +19,7 @@ var Adapter = rowdy.adapters.mocha;
 
 // Patch rowdy to force not started.
 // TODO: FIX IN ROWDY
-if (rowdy.setting.server.start) {
+if ((rowdy.setting.server || {}).start) {
   rowdy.setting.server.start = process.env.TRAVIS !== "true";
 }
 
