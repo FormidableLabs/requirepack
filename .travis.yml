@@ -27,8 +27,8 @@ before_install:
 before_script:
   # Install dev. stuff (e.g., selenium drivers).
   - npm run install-dev
-  - node_modules/.bin/selenium-standalone start &
-  - node_modules/.bin/http-server -a $TEST_FUNC_HOST -p $TEST_FUNC_PORT &
+  - nohup bash -c "node_modules/.bin/selenium-standalone start 2>&1 &"
+  - nohup bash -c "node_modules/.bin/http-server -a $TEST_FUNC_HOST -p $TEST_FUNC_PORT --silent 2>&1 &"
 
 addons:
   sauce_connect: true
@@ -39,8 +39,8 @@ script:
 
   # Sauce Labs
   - ROWDY_SETTINGS="sauceLabs.IE_8_Windows_2008_Desktop" npm run test-func
-  # - ROWDY_SETTINGS="sauceLabs.IE_9_Windows_2008_Desktop" npm run test-func
-  # - ROWDY_SETTINGS="sauceLabs.IE_10_Windows_2012_Desktop" npm run test-func
+  - ROWDY_SETTINGS="sauceLabs.IE_9_Windows_2008_Desktop" npm run test-func
+  - ROWDY_SETTINGS="sauceLabs.IE_10_Windows_2012_Desktop" npm run test-func
   # - ROWDY_SETTINGS="sauceLabs.safari_8_OS_X_10_10_Desktop" npm run test-func
 
   # Manually send coverage reports to coveralls.
