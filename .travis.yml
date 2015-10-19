@@ -47,9 +47,11 @@ script:
     { "ROWDY_SETTINGS":"sauceLabs.safari_8_OS_X_10_10_Desktop" },
     { "ROWDY_SETTINGS":"sauceLabs.chrome_43_OS_X_10_10_Desktop" },
     { "ROWDY_SETTINGS":"sauceLabs.chrome_43_Windows_2012_R2_Desktop" },
-    { "ROWDY_SETTINGS":"sauceLabs.firefox_9_OS_X_10_9_Desktop" },
     { "ROWDY_SETTINGS":"sauceLabs.firefox_9_Windows_2012_R2_Desktop" },
     { "ROWDY_SETTINGS":"local.firefox" } ]'
+
+  # Unreliable Sauce settings
+  # { "ROWDY_SETTINGS":"sauceLabs.firefox_9_OS_X_10_9_Desktop" },
 
   # Manually send coverage reports to coveralls.
   - ls  coverage/*/lcov.info | cat

@@ -59,7 +59,6 @@ var ELEM_WAIT = isSauceLabs ? 5000 : 500; // Global wait.
 
 adapter.before();
 before(function (done) {
-  if (isSauceLabs) { this.timeout(20000); }
   adapter.client
     // Set timeout for waiting on elements.
     .timeoutsImplicitWait(ELEM_WAIT)
