@@ -275,7 +275,7 @@ points:
 
 ```html
 <script src="webpack/lib.js"></script>
-<script src="../../../../node_modules/almond/almond.js"></script>
+<script src="almond.js"></script>
 <script src="requirepack/lib-interop.js"></script>
 <script src="requirejs/app1.js"></script>
 <script src="webpack/app2.js"></script>
