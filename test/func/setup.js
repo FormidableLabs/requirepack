@@ -4,7 +4,7 @@
  * Test setup for functional tests.
  */
 var chai = require("chai");
-var startSelenium = process.env.TRAVIS !== "true";
+var startSelenium = process.env.TEST_PARALLEL !== "true";
 
 // Enable Rowdy with webdriverio.
 var _ = require("lodash");
