@@ -15,6 +15,9 @@ env:
   global:
     - TEST_FUNC_PORT=3030
     - TEST_FUNC_HOST=127.0.0.1
+    - TEST_PARALLEL=true
+    # `sauce_connect` Travis add-on tunnel identifier _must_ be `TRAVIS_JOB_NUMBER`
+    # https://docs.travis-ci.com/user/sauce-connect/
     - SAUCE_CONNECT_TUNNEL_ID=$TRAVIS_JOB_NUMBER
     - SAUCE_USERNAME=requirepack
     - secure: "Gg2no6CkOreDPINT4xoJQPV/93Wq7MxZ7fwgATucuze9KYdidJaKFY8nEx3oJshFtPZ6t46JXxlVrR6n9De720R5RefHUBpuSVVzDedXsdYHXyjh6eNj1z88zteUcLp62hGipvAOrXUeC/l8OuCMCjeqIJtICYF4VJF7RlOyc5RnONOID0u62bogaGnwnHqTH/NlBVLjYDvPGrHhX2FB0TNQaRA89AaE69GyaCSFunEigpA48b/ogfHTF6OfHIvAvtLZf1hrQxGrf854snsqi/yi7+3Kz0m6EABINVGNmD29FqPteR5o7ZPquXt8A8IicL8omFM0jxgU4ma0hRFPvzZLaApFpsCtKfkN9h75LvFkTHkBNXXlaS/ZGMgxWzng6x7jOHxnoczoC2GrqPB48H0kZggHUa7O10gFhmmkbJOywAWv+X2cUaINL/Zn/mxons3JKa1ojb4DDT05TlpUDKv/zPhCAg0fB35GR2/XaZXs1wA8/2fA11VHHfB8Wea91sV+V+3L4H3PD5UueHEV4pE40t54GkjrLVr1OSFIqkDjgVHEkmHJQrx9uVoON6uWT7TwNNK9v2Nt9pRyIYFlHdm1S7pb6h279meN7NC9DueMXp3CYzTwWPgzHGg032tBZ8ga4Nr7wLYZu40Ql+h7D3aw4TWKyPNRo5YM3HkxqRc="
@@ -23,10 +26,15 @@ before_install:
   # GUI for real browsers.
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
+  # Upgrade to npm v2
+  - npm install -g npm@2
 
 before_script:
   # Install dev. stuff (e.g., selenium drivers).
   - npm run install-dev
+  # Start up processes used in parallel tests.
+  # Note: We're playing a bit fast & loose here bceause selenium standalone needs to "just be ready"
+  # by the time we start our tests.
   - nohup bash -c "node_modules/.bin/selenium-standalone start 2>&1 &"
   - nohup bash -c "node_modules/.bin/http-server -a $TEST_FUNC_HOST -p $TEST_FUNC_PORT --silent 2>&1 &"
 
@@ -34,12 +42,22 @@ addons:
   sauce_connect: true
 
 script:
-  # Run all base checks (with FF browser for functional tests).
+  # Run all base checks (with `local.phantomjs` browser for functional tests).
   - npm run check-ci
 
   # Sauce Labs
+  #
+  # Run all different environments in parallel for different `ROWDY_SETTINGS`
+  # values. Flags key:
+  #
+  # - `buffer`: Save test output until _end_ of test run finishes (to make more
+  #   sense of concurrent output).
+  # - `tries=2`: Try each separate test suite 2x before declaring a failures.
+  # - `queue=NUM`: (Not Enabled) Limit concurrency to max of `NUM` tasks at the
+  #   same time.
+  #
   - >-
-    node test/util/run-concurrent.js "npm run test-func"
+    node_modules/.bin/builder envs test-func --buffer --tries=2
     '[ { "ROWDY_SETTINGS":"sauceLabs.IE_8_Windows_2008_Desktop" },
     { "ROWDY_SETTINGS":"sauceLabs.IE_9_Windows_2008_Desktop" },
     { "ROWDY_SETTINGS":"sauceLabs.IE_10_Windows_2012_Desktop" },
@@ -55,4 +73,4 @@ script:
 
   # Manually send coverage reports to coveralls.
   - ls  coverage/*/lcov.info | cat
-  - cat coverage/*/lcov.info | ./node_modules/.bin/coveralls || echo "Coveralls upload failed"
+  - cat coverage/*/lcov.info | node_modules/.bin/coveralls || echo "Coveralls upload failed"

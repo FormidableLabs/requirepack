@@ -10,51 +10,13 @@
 process.env.NODE_ENV = process.env.NODE_ENV || "test-func";
 
 // ----------------------------------------------------------------------------
-// Sauce Connect Tunnel
-// ----------------------------------------------------------------------------
-var rowdy = require("rowdy");
-var isSauceLabs = rowdy.config.setting.isSauceLabs;
-
-if (isSauceLabs && process.env.LAUNCH_SAUCE_CONNECT === "true") {
-  var connect = require("sauce-connect-launcher");
-  var connectPs;
-
-  before(function (done) {
-    // SC takes a **long** time.
-    this.timeout(60000);
-
-    connect({
-      username: rowdy.config.setting.host,
-      accessKey: rowdy.config.setting.key,
-      verbose: true
-    }, function (err, ps) {
-      if (err) { return done(err); }
-      // Stash process.
-      connectPs = ps;
-
-      // Patch settings
-      //obj.desiredCapabilities.tunnelIdentifier =
-
-      done();
-    });
-  });
-
-  after(function (done) {
-    if (connectPs) {
-      this.timeout(30000);
-      return connectPs.close(done);
-    }
-
-    done();
-  });
-}
-
-// ----------------------------------------------------------------------------
 // Selenium (Webdriverio/Rowdy) initialization
 // ----------------------------------------------------------------------------
 // **Note** Can stash adapter, but not `adapter.client` because it is a lazy
 // getter that relies on the global `before|beforeEach` setup.
+var rowdy = require("rowdy");
 var adapter = global.adapter;
+var isSauceLabs = rowdy.config.setting.isSauceLabs;
 var ELEM_WAIT = isSauceLabs ? 5000 : 500; // Global wait.
 
 adapter.before();
@@ -92,7 +54,7 @@ before(function () {
 // App server
 // ----------------------------------------------------------------------------
 before(function (done) {
-  if (process.env.TRAVIS === "true") { return done(); }
+  if (process.env.TEST_PARALLEL === "true") { return done(); }
 
   server = httpServer.createServer();
   server.listen(APP_PORT, APP_HOST, done);
